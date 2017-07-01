@@ -15,7 +15,7 @@ $ mkdir blog
 $ cd blog
 $ virtualenv --no-site-packages --distribute -p /usr/bin/python3 virtualenv
 $ source ./venv/bin/activate
-$ pip install -r requirements_dev.txt
+$ pip install -r requirements.txt
 $ cd web-application
 $ ./manage.py makemigrations thumbnail
 $ ./manage.py migrate
