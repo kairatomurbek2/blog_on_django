@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -52,6 +54,7 @@ class PostManager(models.Manager):
 
 
 class Post(models.Model):
+    user = models.ForeignKey(User, related_name='posts')
     title = models.CharField(max_length=100, verbose_name=_('Название'))
     slug = models.SlugField(verbose_name=_('Ссылка'))
     image = models.ImageField(verbose_name=_('Изображение'), upload_to=blog_image_upload_path, blank=True)
