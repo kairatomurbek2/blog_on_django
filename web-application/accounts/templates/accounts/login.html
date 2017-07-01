@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles thumbnail %}
+{% block title %}
+    <title>{{ post.title }}</title>
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {% block form %}
+            <form method="post" name="auth">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <p class="text-danger">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще
+                        раз.</p>
+                {% endif %}
+                <div class="form-group">
+                    <label for="username_id">Username</label>
+                    <input type="text" class="form-control" id="username_id" placeholder="Username" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                           name="password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Войти</button>
+            </form>
+        {% endblock %}
+    </div>
+{% endblock %}

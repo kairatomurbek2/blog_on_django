@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles widget_tweaks %}
+{% block title %}
+    <title>{{ post.title }}</title>
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post" name="registration">
+            {% csrf_token %}
+            <div class="form-group">
+                <span class="label label-danger">{{ form.first_name.errors|striptags }}</span>
+                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                {% render_field form.first_name|add_class:'form-control' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.last_name.errors|striptags }}</span>
+                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                {% render_field form.last_name|add_class:'form-control' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.email.errors|striptags }}</span>
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {% render_field form.email|add_class:'form-control' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.username.errors|striptags }}</span>
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {% render_field form.username|add_class:'form-control' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.password1.errors|striptags }}</span>
+                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                {% render_field form.password1|add_class:'form-control' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.password2.errors|striptags }}</span>
+                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                {% render_field form.password2|add_class:'form-control' %}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Зарегистрироваться</button>
+        </form>
+    </div>
+{% endblock %}
