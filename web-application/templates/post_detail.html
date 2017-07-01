@@ -6,28 +6,26 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        {% thumbnail post.image "740" as im %}
-            <img src="{{ im.url }}">
-        {% endthumbnail %}
+        <div class="row">
+            {% thumbnail post.image "740" as im %}
+                <img src="{{ im.url }}">
+            {% endthumbnail %}
 
-        <div style="max-width: 70px; max-height: 70px; border: 2px solid green; background-color: rgb(255, 128, 0); float: left;
-    margin-right: 10px;">
-            <span style="font-size: 10px; color: red;">{{ post.created_at }}</span>
-        </div>
-        <h1 class="page-header">{{ post.title }}</h1>
-        <p>ADMIN</p><br>
-        <div class="col-md-8">
-            {{ post.info|safe }}
-        </div>
-        <div class="col-md-8">
-            <h4 class="text-center"><b>Написать коментарий</b></h4>
-            <div>
-                <form>
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-                </form>
+            <h1 class="page-header">{{ post.title }}</h1>
+            <p>Автор: {{ post.user.get_full_name }} - {{ post.created_at }}</p><br>
+            <div class="col-md-8">
+                {{ post.info|safe }}
+            </div>
+            <div class="col-md-8">
+                <h4 class="text-center"><b>Написать коментарий</b></h4>
+                <div>
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

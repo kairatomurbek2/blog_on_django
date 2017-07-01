@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.urls import reverse
+from pytils.translit import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from mptt.fields import TreeForeignKey
@@ -67,6 +68,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
+        if self.id and not self.slug:
+            self.slug = slugify(self.title)
+            super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.category.slug, 'post_slug': self.slug})

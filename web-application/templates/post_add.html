@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles widget_tweaks %}
+{% block title %}
+    <title>Добавить статью</title>
+
+{% endblock %}
+{% block head %}
+    <link href="{% static 'redactor/redactor.css' %}" type="text/css" media="all" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <span class="label label-danger">{{ form.title.errors|striptags }}</span>
+                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                {% render_field form.title|add_class:'form-control' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.info.errors|striptags }}</span>
+                <label for="{{ form.info.id_for_label }}">{{ form.info.label }}</label>
+                {% render_field form.info|add_class:'form-control' %}
+            </div>
+
+            <div class="form-group">
+                <span class="label label-danger">{{ form.image.errors|striptags }}</span>
+                <label for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+                {% render_field form.image|add_class:'file' %}
+            </div>
+            <div class="form-group">
+                <span class="label label-danger">{{ form.category.errors|striptags }}</span>
+                <label for="{{ form.category.id_for_label }}">Выбирите категорию</label>
+                {% render_field form.category|add_class:'form-control' %}
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block">Добавить пост</button>
+        </form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'redactor/jquery.redactor.init.js' %}"></script>
+    <script src="{% static 'redactor/redactor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'redactor/plugins/table.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                $('#id_info').redactor({
+                    plugins: ['table']
+                });
+            }
+        );
+    </script>
+{% endblock %}

@@ -25,6 +25,9 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li>
+                        <a href="{% url 'post_add' %}">Добавить статью</a>
+                    </li>
+                    <li>
                         <a href="{% url 'logout' %}">Выйти</a>
                     </li>
                 {% endif %}
@@ -36,8 +39,6 @@
                         <a href="{% url 'registration' %}">Регистрация</a>
                     </li>
                 {% endif %}
-
-
             </ul>
         </div>
         <!-- /.navbar-collapse -->

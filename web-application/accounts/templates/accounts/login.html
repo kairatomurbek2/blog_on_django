@@ -6,6 +6,7 @@
 {% endblock %}
 {% block content %}
     <div class="container">
+        {% include 'messages.html' %}
         {% block form %}
             <form method="post" name="auth">
                 {% csrf_token %}
@@ -14,15 +15,16 @@
                         раз.</p>
                 {% endif %}
                 <div class="form-group">
-                    <label for="username_id">Username</label>
-                    <input type="text" class="form-control" id="username_id" placeholder="Username" name="username">
+                    <label for="username_id">Ваш логин</label>
+                    <input type="text" class="form-control" id="username_id" placeholder="Введите логин"
+                           name="username">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                    <label for="exampleInputPassword1">Ваш пароль</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль"
                            name="password">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Войти</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block">Войти</button>
             </form>
         {% endblock %}
     </div>

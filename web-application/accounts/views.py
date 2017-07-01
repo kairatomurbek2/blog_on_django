@@ -49,4 +49,4 @@ class RegistrationView(CreateView):
         return super(RegistrationView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('login')

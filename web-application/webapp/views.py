@@ -1,9 +1,14 @@
+from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
-from webapp.models import Post, Category
+from main.parameters import Messages
+from webapp import forms
+from webapp.models import Post, Category, Status
 
 
 class HomeView(ListView):
@@ -46,3 +51,27 @@ class PostDetailView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Post, slug=self.kwargs['post_slug'], status__name='Активный')
+
+
+class PostAddView(CreateView):
+    success_message = Messages.Post.adding_success
+    template_name = 'post_add.html'
+    model = Post
+    form_class = forms.PostForm
+
+    def get(self, request):
+        if self.request.user.is_authenticated():
+            return render(request, self.template_name, {'form': self.form_class})
+        return HttpResponseRedirect(request.GET.get('next', reverse('home')))
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.user = self.request.user
+        post.status = Status.objects.get(name='На модерации')
+        post.save()
+        return super(PostAddView, self).form_valid(form)
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS, self.success_message)
+        return reverse('home')
+
